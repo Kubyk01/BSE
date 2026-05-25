@@ -18,7 +18,7 @@ public class Salon {
     private String address;
     private String district;
     private String phone;
-    private Map<String, String> website; //"name of social link,ex facebook":"link"
+    private Map<String, String> website; //"name of social link,ex "facebook":"link"
     private List<String> services;
     private PriceRange priceRange;
     private Double rating;

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+          http://www.liquibase.org/xml/ns/dbchangelog
+          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="001-initial-schema" author="oles">
+        <createTable tableName="Salon">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="district" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="TEXT"/>
+            <column name="website" type="JSONB"/>
+            <column name="services" type="TEXT[]"/>
+            <column name="lowest_price" type="DOUBLE PRECISION"/>
+            <column name="highest_price" type="DOUBLE PRECISION"/>
+            <column name="rating" type="DOUBLE PRECISION"/>
+            <column name="number_of_reviews" type="INTEGER"/>
+        </createTable>
+
+        <createIndex tableName="Salon" indexName="idx_salon_district">
+            <column name="district"/>
+        </createIndex>
+
+        <createIndex tableName="Salon" indexName="idx_salon_rating">
+            <column name="rating"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
