@@ -1,4 +1,4 @@
-# Warsaw Beauty Salon Explorer – Backend
+# Beauty Salon Explorer – Backend
 
 Reactive REST API for exploring and managing beauty salons in Warsaw.
 Built with **Hexagonal Architecture**, **Spring WebFlux**, and **R2DBC** for fully non-blocking database access.
@@ -77,9 +77,10 @@ salonshub.exe
 ---
 
 ## TODO
-
-1. Improve update logic using `BeanCopyUtils` to update only changed fields
-2. Enhance dynamic search:
+1. add verification for fields in DEL /salons, GET /salons
+2. Adding more sql-native batching for /ingest/batch
+3. Improve update logic using `BeanCopyUtils` to update only changed fields
+4. Enhance dynamic search:
  
     * support additional filter types
     * replace string matching with SQL `LIKE` in `SqlBuilder`

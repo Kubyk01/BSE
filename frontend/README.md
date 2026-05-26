@@ -1,16 +1,67 @@
-# React + Vite
+# Beauty Salon Explorer – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React-based web application for browsing, filtering, and managing beauty salons in Warsaw.  
+Connects to a reactive Spring Boot backend (R2DBC + PostgreSQL).  
+Provides real‑time filtering, pagination, salon details, and full CRUD operations.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Prerequisites
 
-## React Compiler
+- Node.js 18+ (or 20+)
+- npm or yarn
+- Backend service running (see backend README)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Run Locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Start the development server
+
+```bash
+npm run dev
+```
+
+The application will be available at http://localhost:5173
+
+
+### 3. Build for production
+```bash
+npm run build
+```
+
+### 4. Build for production
+```bash
+npm run preview
+```
+
+make sure backend is running ;]
+
+---
+
+
+## Technologies Used
+
+* React 18 – component‑based UI library
+* React Router v6 – client‑side routing for listing and detail pages
+* Vite – fast development server and build tool
+* SCSS (Sass) – modular styling with CSS variables and nesting
+* Axios – HTTP client for communication with the backend API
+* React Hooks – state management (useState, useEffect, useCallback)
+* Custom UI components – FilterBar, SalonCard, EditSalonModal
+* Responsive design – mobile‑first breakpoints (768px, 1024px)
+
+
+---
+
+
+## Todo:
+1. Advanced filtering - add min/max range inputs for numeric fields
+2. Infinite scroll – replace pagination buttons with smooth infinite scrolling.
+3. When in backend BeanUtils implements, change update to send only changed fields

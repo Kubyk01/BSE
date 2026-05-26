@@ -43,6 +43,14 @@
     "name": "bce.com.salonshub.adapter.driving.rest.model.view.SalonView",
     "allDeclaredConstructors": true,
     "allDeclaredMethods": true,
-    "allDeclaredFields": true
+    "allDeclaredFields": true,
+    "unsafeAllocated": true
+  },
+  {
+    "name": "bce.com.salonshub.adapter.driving.rest.model.view.SalonView[]",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true,
+    "unsafeAllocated": true
   }
 ]

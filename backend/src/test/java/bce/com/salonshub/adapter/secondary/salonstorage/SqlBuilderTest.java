@@ -21,8 +21,10 @@ class SqlBuilderTest {
         SqlBuilder.WhereClause where = SqlBuilder.buildWhereClause(fields);
 
         String sql = where.sql();
-        assertTrue(sql.contains("lowest_price = :p1") || sql.contains("lowest_price = :p2"));
-        assertTrue(sql.contains("number_of_reviews = :p1") || sql.contains("number_of_reviews = :p2"));
+        assertTrue(sql.contains("lowest_price = CAST(:p1 AS DOUBLE PRECISION)") ||
+            sql.contains("lowest_price = CAST(:p2 AS DOUBLE PRECISION)"));
+        assertTrue(sql.contains("number_of_reviews = CAST(:p1 AS INTEGER)") ||
+            sql.contains("number_of_reviews = CAST(:p2 AS INTEGER)"));
 
         assertEquals(2, where.parameters().size());
         assertTrue(where.parameters().containsValue("50"));
