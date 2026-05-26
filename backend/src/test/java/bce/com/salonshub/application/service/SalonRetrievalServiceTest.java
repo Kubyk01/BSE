@@ -3,58 +3,85 @@ package bce.com.salonshub.application.service;
 import bce.com.salonshub.domain.PriceRange;
 import bce.com.salonshub.domain.Salon;
 import bce.com.salonshub.domain.SalonId;
-import bce.com.salonshub.fixture.PortFixture;
+import bce.com.salonshub.port.secondary.SalonStoragePort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.util.Map;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class SalonRetrievalServiceTest {
 
+    @Mock
+    private SalonStoragePort storagePort;
+
+    @InjectMocks
     private SalonRetrievalService retrievalService;
-    private SalonIngestionService ingestionService;
+
+    private Salon salon;
+    private SalonId salonId;
 
     @BeforeEach
     void setUp() {
-        PortFixture portFixture = PortFixture.withNewInMemoryDatabase();
-        retrievalService = (SalonRetrievalService) portFixture.salonRetrievalPort();
-        ingestionService = (SalonIngestionService) portFixture.salonIngestionPort();
-    }
-
-    @Test
-    void findAllSalons_shouldReturnAllStored() {
-        Salon s1 = Salon.builder().name("Salon A").address("Addr1").district("Dist1").priceRange(new PriceRange(0,0)).build();
-        Salon s2 = Salon.builder().name("Salon B").address("Addr2").district("Dist2").priceRange(new PriceRange(0,0)).build();
-
-        ingestionService.ingestSalon(s1).block();
-        ingestionService.ingestSalon(s2).block();
-
-        StepVerifier.create(retrievalService.findAllSalons().collectList())
-            .assertNext(list -> assertThat(list).hasSize(2))
-            .verifyComplete();
-    }
-
-    @Test
-    void findSalonById_shouldReturnCorrect() {
-        Salon salon = Salon.builder()
-            .name("Unique")
+        salonId = new SalonId(UUID.randomUUID());
+        salon = Salon.builder()
+            .id(salonId)
+            .name("Test Salon")
             .address("Addr")
             .district("Dist")
-            .priceRange(new PriceRange(0,0))
+            .phone("+123")
+            .priceRange(new PriceRange(0, 0))
             .build();
-        ingestionService.ingestSalon(salon).block();
+    }
 
-        StepVerifier.create(retrievalService.findSalonById(salon.getId()))
-            .expectNextMatches(s -> s.getName().equals("Unique"))
+    @Test
+    void findAllSalons_shouldReturnAllFromStorage() {
+        Pageable pageable = PageRequest.of(0, 10);
+        when(storagePort.findAll(pageable)).thenReturn(Flux.just(salon));
+
+        StepVerifier.create(retrievalService.findAllSalons(pageable))
+            .expectNext(salon)
             .verifyComplete();
     }
 
     @Test
-    void findSalonById_notFound_shouldReturnEmpty() {
+    void findSalonById_shouldReturnSalonWhenExists() {
+        when(storagePort.findById(salonId)).thenReturn(Mono.just(salon));
+
+        StepVerifier.create(retrievalService.findSalonById(salonId))
+            .expectNext(salon)
+            .verifyComplete();
+    }
+
+    @Test
+    void findSalonById_shouldReturnEmptyWhenNotFound() {
+        when(storagePort.findById(any(SalonId.class))).thenReturn(Mono.empty());
+
         StepVerifier.create(retrievalService.findSalonById(new SalonId(UUID.randomUUID())))
+            .verifyComplete();
+    }
+
+    @Test
+    void findSalonsByFields_shouldDelegateToStorage() {
+        Map<String, String> fields = Map.of("district", "Dist");
+        Pageable pageable = Pageable.unpaged();
+        when(storagePort.findByFields(fields, pageable)).thenReturn(Flux.just(salon));
+
+        StepVerifier.create(retrievalService.findSalonsByFields(fields, pageable))
+            .expectNext(salon)
             .verifyComplete();
     }
 }

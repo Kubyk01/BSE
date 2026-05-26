@@ -13,7 +13,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,9 +23,6 @@ public class SalonIngestionService implements SalonIngestionPort {
 
     @Override
     public Mono<Void> ingestSalon(Salon salon) {
-        if (salon.getId() == null) {
-            salon.setId(new SalonId(UUID.randomUUID()));
-        }
         normalizePhone(salon);
         return storagePort.save(salon).then();
     }

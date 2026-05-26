@@ -10,6 +10,8 @@ import io.r2dbc.postgresql.codec.Json;
 import lombok.SneakyThrows;
 
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 public final class SalonMapper {
 
@@ -20,25 +22,44 @@ public final class SalonMapper {
     @SneakyThrows
     public static SalonDao toDao(Salon salon) {
         if (salon == null) return null;
-        SalonDao dao = new SalonDao();
-        dao.setId(salon.getId() != null ? salon.getId().id() : null);
-        dao.setName(salon.getName());
-        dao.setAddress(salon.getAddress());
-        dao.setDistrict(salon.getDistrict());
-        dao.setPhone(salon.getPhone());
-        if (salon.getWebsite() != null) {
-            String json = OBJECT_MAPPER.writeValueAsString(salon.getWebsite());
-            dao.setWebsite(Json.of(json));
-        }
-        dao.setServices(salon.getServices());
-        if (salon.getPriceRange() != null) {
-            dao.setLowestPrice(salon.getPriceRange().lowestPrice());
-            dao.setHighestPrice(salon.getPriceRange().highestPrice());
-        }
-        dao.setRating(salon.getRating());
-        dao.setNumberOfReviews(salon.getNumberOfReviews());
-        dao.setNew(salon.getId() == null || salon.getId().id() == null);
-        return dao;
+
+        UUID id = Optional.ofNullable(salon.getId())
+            .map(SalonId::id)
+            .orElseGet(UUID::randomUUID);
+
+        boolean isNew = salon.getId() == null || salon.getId().id() == null;
+
+        Json websiteJson = Optional.ofNullable(salon.getWebsite())
+            .map(SalonMapper::serializeWebsite)
+            .orElse(null);
+
+        Double lowest = Optional.ofNullable(salon.getPriceRange())
+            .map(PriceRange::lowestPrice)
+            .orElse(null);
+        Double highest = Optional.ofNullable(salon.getPriceRange())
+            .map(PriceRange::highestPrice)
+            .orElse(null);
+
+        return new SalonDao(
+            id,
+            salon.getName(),
+            salon.getAddress(),
+            salon.getDistrict(),
+            salon.getPhone(),
+            websiteJson,
+            salon.getServices(),
+            lowest,
+            highest,
+            salon.getRating(),
+            salon.getNumberOfReviews(),
+            isNew
+        );
+    }
+
+    @SneakyThrows
+    private static Json serializeWebsite(Map<String, String> website) {
+        String json = OBJECT_MAPPER.writeValueAsString(website);
+        return Json.of(json);
     }
 
     @SneakyThrows
@@ -47,8 +68,7 @@ public final class SalonMapper {
         Map<String, String> website = null;
         if (dao.getWebsite() != null) {
             website = OBJECT_MAPPER.readValue(dao.getWebsite().asString(),
-                new TypeReference<>() {
-                });
+                new TypeReference<>() {});
         }
         return Salon.builder()
             .id(dao.getId() != null ? new SalonId(dao.getId()) : null)

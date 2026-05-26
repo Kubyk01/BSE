@@ -1,11 +1,13 @@
 package bce.com.salonshub.adapter.secondary.salonstorage;
 
+import org.springframework.data.relational.core.query.Criteria;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public final class SqlBuilder {
 
-    private static String toSnakeCase(String camelCase) {
+    public static String toSnakeCase(String camelCase) {
         if (camelCase == null || camelCase.isEmpty()) return camelCase;
         StringBuilder result = new StringBuilder();
         result.append(Character.toLowerCase(camelCase.charAt(0)));
@@ -40,6 +42,14 @@ public final class SqlBuilder {
         }
 
         return new WhereClause(whereClause.toString(), parameters);
+    }
+    public static Criteria toCriteria(Map<String, String> fields) {
+        Criteria criteria = Criteria.empty();
+        for (Map.Entry<String, String> entry : fields.entrySet()) {
+            String column = toSnakeCase(entry.getKey());
+            criteria = criteria.and(column).is(entry.getValue());
+        }
+        return criteria;
     }
 
     public record WhereClause(String sql, Map<String, Object> parameters) {}

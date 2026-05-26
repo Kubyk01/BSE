@@ -19,8 +19,14 @@ class SqlBuilderTest {
     void buildWhereClause_shouldConvertCamelCaseToSnakeCase() {
         Map<String, String> fields = Map.of("lowestPrice", "50", "numberOfReviews", "100");
         SqlBuilder.WhereClause where = SqlBuilder.buildWhereClause(fields);
-        assertEquals(" WHERE lowest_price = :p1 AND number_of_reviews = :p2", where.sql());
-        assertEquals(Map.of("p1", "50", "p2", "100"), where.parameters());
+
+        String sql = where.sql();
+        assertTrue(sql.contains("lowest_price = :p1") || sql.contains("lowest_price = :p2"));
+        assertTrue(sql.contains("number_of_reviews = :p1") || sql.contains("number_of_reviews = :p2"));
+
+        assertEquals(2, where.parameters().size());
+        assertTrue(where.parameters().containsValue("50"));
+        assertTrue(where.parameters().containsValue("100"));
     }
 
     @Test

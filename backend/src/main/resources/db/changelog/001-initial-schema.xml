@@ -7,7 +7,7 @@
           http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="001-initial-schema" author="oles">
-        <createTable tableName="Salon">
+        <createTable tableName="salon">
             <column name="id" type="UUID">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -29,11 +29,11 @@
             <column name="number_of_reviews" type="INTEGER"/>
         </createTable>
 
-        <createIndex tableName="Salon" indexName="idx_salon_district">
+        <createIndex tableName="salon" indexName="idx_salon_district">
             <column name="district"/>
         </createIndex>
 
-        <createIndex tableName="Salon" indexName="idx_salon_rating">
+        <createIndex tableName="salon" indexName="idx_salon_rating">
             <column name="rating"/>
         </createIndex>
     </changeSet>

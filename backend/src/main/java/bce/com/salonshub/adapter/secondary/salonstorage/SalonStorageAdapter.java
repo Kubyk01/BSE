@@ -6,7 +6,10 @@ import bce.com.salonshub.domain.Salon;
 import bce.com.salonshub.domain.SalonId;
 import bce.com.salonshub.port.secondary.SalonStoragePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
+import org.springframework.data.relational.core.query.Criteria;
+import org.springframework.data.relational.core.query.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -32,8 +35,12 @@ public class SalonStorageAdapter implements SalonStoragePort {
     }
 
     @Override
-    public Flux<Salon> findAll() {
-        return repository.findAll().map(SalonMapper::toDomain);
+    public Flux<Salon> findAll(Pageable pageable) {
+        Query query = Query.query(Criteria.empty()).with(pageable);
+        return template.select(SalonDao.class)
+            .matching(query)
+            .all()
+            .map(SalonMapper::toDomain);
     }
 
     @Override
@@ -52,13 +59,11 @@ public class SalonStorageAdapter implements SalonStoragePort {
     }
 
     @Override
-    public Flux<Salon> findByFields(Map<String, String> fields) {
-        SqlBuilder.WhereClause where = SqlBuilder.buildWhereClause(fields);
-        String sql = "SELECT * FROM Salon" + where.sql();
-        return template.getDatabaseClient()
-            .sql(sql)
-            .bindValues(where.parameters())
-            .map((row, metadata) -> template.getConverter().read(SalonDao.class, row, metadata))
+    public Flux<Salon> findByFields(Map<String, String> fields, Pageable pageable) {
+        Criteria criteria = SqlBuilder.toCriteria(fields);
+        Query query = Query.query(criteria).with(pageable);
+        return template.select(SalonDao.class)
+            .matching(query)
             .all()
             .map(SalonMapper::toDomain);
     }
@@ -66,7 +71,7 @@ public class SalonStorageAdapter implements SalonStoragePort {
     @Override
     public Mono<Salon> update(SalonId id, Salon salon) {
         return repository.findById(id.id())
-            .flatMap(_ -> {
+            .flatMap(existing -> {
                 SalonDao dao = SalonMapper.toDao(salon);
                 dao.setId(id.id());
                 return repository.save(dao);

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+          http://www.liquibase.org/xml/ns/dbchangelog
+          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="002-insert-salons" author="system">
+        <sql dbms="postgresql" endDelimiter=";" splitStatements="true">
+            INSERT INTO salon (id, name, address, district, phone, website, services, lowest_price, highest_price, rating, number_of_reviews) VALUES
+
+              (gen_random_uuid(), 'Milek Design', 'ul. Hoża 42, 00-516 Warszawa', 'Śródmieście', '+48 222 998 444', '{"website":"milek-design.pl"}', ARRAY['Haircut','Coloring','Styling'], 80, 250, 4.5, 780),
+              (gen_random_uuid(), 'CutCut Pracownia', 'ul. Żurawia 22/24, 00-515 Warszawa', 'Śródmieście', '+48 570 575 685', '{"website":"cutcutpracownia.pl"}', ARRAY['Balayage','AirTouch','Haircut','Coloring'], 120, 450, 4.9, 420),
+              (gen_random_uuid(), 'Barberian Academy &amp; Barber Shop', 'Emilii Plater 25, 00-688 Warszawa', 'Śródmieście', '+48 570 710 516', '{"website":"barberian.pl"}', ARRAY['Haircut','Beard Trim','Shave'], 60, 150, 4.7, 1316),
+              (gen_random_uuid(), 'Knight Barbershop (Wola)', 'Żelazna 59A, 00-848 Warszawa', 'Śródmieście', '+48 888 555 448', '{"website":"knightbarbershop.pl"}', ARRAY['Haircut','Beard Trim','Skin Fade'], 50, 120, 4.9, 4412),
+              (gen_random_uuid(), 'Salon z Pasją', 'Kochanowskiego 47, 01-864 Warszawa', 'Śródmieście', '+48 796 868 030', '{"website":"salonzpasja.pl"}', ARRAY['Haircut','Coloring','Styling'], 60, 150, 4.7, 340),
+              (gen_random_uuid(), 'Luczak. Barber - beauty', 'Warszawska 93, 00-017 Warszawa', 'Śródmieście', '+48 513 980 909', '{"website":"luczakbarber.pl"}', ARRAY['Beard Trim','Haircut'], 45, 90, 4.6, 215),
+              (gen_random_uuid(), 'Dawid Krynicki Hair Salon', 'ul. Wilcza 32, 00-544 Warszawa', 'Śródmieście', '+48 22 123 45 67', '{"website":"dawidkrynicki.pl"}', ARRAY['Haircut','Coloring','Styling','Wedding Hairstyles'], 100, 350, 4.8, 560),
+              (gen_random_uuid(), 'Jean Louis David', 'ul. Marszałkowska 104/122, 00-017 Warszawa', 'Śródmieście', '+48 22 620 80 50', '{"website":"jeanlouisdavid.pl"}', ARRAY['Haircut','Coloring','Styling'], 70, 200, 4.0, 890),
+              (gen_random_uuid(), '1909 Fryzjerzy', 'ul. Nowy Świat 6/12, 00-400 Warszawa', 'Śródmieście', '+48 22 826 51 26', '{"website":"1909fryzjerzy.pl"}', ARRAY['Haircut','Beard','Shave'], 60, 180, 4.6, 430),
+              (gen_random_uuid(), 'U Fryzjerów', 'ul. Freta 16/18, 00-227 Warszawa', 'Śródmieście', '+48 22 831 35 37', '{"website":"ufryzjerow.pl"}', ARRAY['Coloring','Haircut','Styling'], 90, 280, 4.7, 670),
+              (gen_random_uuid(), 'Gaba Hair Story', 'ul. Zajęcza 2B, 00-351 Warszawa', 'Śródmieście', '+48 22 123 45 68', '{"website":"gabahairstory.pl"}', ARRAY['Haircut','Coloring','Styling'], 150, 500, 4.9, 890),
+              (gen_random_uuid(), 'Salon Fryzjerski Koszykowa', 'ul. Koszykowa 53, 00-673 Warszawa', 'Śródmieście', '+48 22 621 14 96', '{"website":"koszykowa.fryzjerzy.pl"}', ARRAY['Haircut','Coloring','Styling'], 50, 120, 4.2, 320),
+              (gen_random_uuid(), 'Salon Fryzjerski Bitwy Warszawskiej', 'ul. Bitwy Warszawskiej 1920 r. 4, 02-360 Warszawa', 'Śródmieście', '+48 22 822 57 87', '{"website":null}', ARRAY['Haircut','Coloring'], 40, 100, 4.3, 180),
+              (gen_random_uuid(), 'Dobry Fryzjer Stylista Patryk Zawadzki', 'ul. Prosta 68, 00-838 Warszawa', 'Śródmieście', '+48 533 664 200', '{"website":null}', ARRAY['Haircut','Styling','Coloring'], 70, 180, 4.8, 95),
+              (gen_random_uuid(), 'margines - hair, beard, nails', 'ul. Bracka 18, 00-028 Warszawa', 'Śródmieście', '+48 506 456 789', '{"website":"margines.pl"}', ARRAY['Haircut','Beard','Nails'], 80, 220, 4.9, 320),
+              (gen_random_uuid(), 'Heritage', 'ul. Krucza 23/31, 00-525 Warszawa', 'Śródmieście', '+48 22 123 45 69', '{"website":"heritage.pl"}', ARRAY['Haircut','Coloring','Styling'], 120, 400, 4.7, 540),
+
+              -- Mokotów
+              (gen_random_uuid(), 'Salon Modzelewskiego', 'ul. Modzelewskiego 15, 02-679 Warszawa', 'Mokotów', '+48 22 123 45 70', '{"website":"modzelewski.pl"}', ARRAY['Haircut','Coloring','Styling'], 80, 220, 4.5, 340),
+              (gen_random_uuid(), 'Cyrulik', 'ul. Domaniewska 35, 02-672 Warszawa', 'Mokotów', '+48 22 123 45 71', '{"website":"cyrulik.pl"}', ARRAY['Haircut','Beard','Shave'], 60, 140, 4.6, 210),
+              (gen_random_uuid(), 'Agnieszka Studio Urody', 'ul. Puławska 113, 02-707 Warszawa', 'Mokotów', '+48 22 123 45 72', '{"website":"agnieszkastudiourody.pl"}', ARRAY['Haircut','Coloring','Manicure','Pedicure'], 50, 150, 4.4, 450),
+              (gen_random_uuid(), 'Piotr Knapik Studio Fryzur Korona', 'ul. Wołoska 12, 02-675 Warszawa', 'Mokotów', '+48 22 123 45 73', '{"website":"knapik.pl"}', ARRAY['Haircut','Coloring','Styling'], 70, 200, 4.5, 280),
+              (gen_random_uuid(), 'BLOSSOM HAIR Mokotów', 'ul. Bokserska 60, 02-690 Warszawa', 'Mokotów', '+48 22 123 45 74', '{"website":"blossomhair.pl"}', ARRAY['Haircut','Coloring','Balayage'], 90, 300, 4.6, 150),
+              (gen_random_uuid(), 'Legacy Barbershop &amp; SPA Mokotow', 'ul. Zdziechowskiego 11/U1, 02-659 Warszawa', 'Mokotów', '+48 22 123 45 75', '{"website":"legacybarbershop.pl"}', ARRAY['Haircut','Beard','SPA'], 80, 250, 4.9, 890),
+              (gen_random_uuid(), 'Jean Louis David Westfield Mokotów', 'ul. Wołoska 12, 02-675 Warszawa', 'Mokotów', '+48 22 123 45 76', '{"website":"jld.pl"}', ARRAY['Haircut','Coloring','Styling'], 70, 180, 4.2, 670),
+              (gen_random_uuid(), 'HOP-CHOP BarberShop', 'ul. Wołoska 12, 02-675 Warszawa', 'Mokotów', '+48 22 123 45 77', '{"website":"hopchop.pl"}', ARRAY['Haircut','Beard'], 50, 120, 4.5, 320),
+              (gen_random_uuid(), 'House of Barbers', 'ul. Cybernetyki 15, 02-677 Warszawa', 'Mokotów', '+48 22 123 45 78', '{"website":"houseofbarbers.pl"}', ARRAY['Haircut','Beard','Skin Fade'], 60, 150, 4.6, 210),
+              (gen_random_uuid(), 'Hair Stylist Bartek Janusz', 'ul. Domaniewska 37, 02-672 Warszawa', 'Mokotów', '+48 22 123 45 79', '{"website":"bartekjanusz.pl"}', ARRAY['Haircut','Coloring','Styling'], 100, 350, 4.9, 340),
+
+              -- Wola
+              (gen_random_uuid(), 'Abstrakcja', 'ul. Łucka 18/lok 11, 00-845 Warszawa', 'Wola', '+48 22 123 45 80', '{"website":"abstrakcja.pl"}', ARRAY['Haircut','Coloring','Styling'], 50, 300, 4.4, 180),
+              (gen_random_uuid(), 'Salon Fryzjerski RED Hair', 'ul. Górczewska 15, 01-186 Warszawa', 'Wola', '+48 22 123 45 81', '{"website":"redhair.pl"}', ARRAY['Haircut','Coloring','Styling'], 60, 160, 4.3, 120),
+              (gen_random_uuid(), 'Władysław Fryzjer', 'ul. Obozowa 22, Lokal 3 (Salon "Love My Hair"), 01-161 Warszawa', 'Wola', '+48 22 123 45 82', '{"website":null}', ARRAY['Haircut','Beard','Coloring'], 40, 120, 4.6, 90),
+              (gen_random_uuid(), 'Magia Blondu', 'ul. Górczewska 24, 01-147 Warszawa', 'Wola', '+48 518 364 023', '{"website":null}', ARRAY['Blonde Coloring','Haircut','Styling'], 80, 300, 4.8, 210),
+              (gen_random_uuid(), 'Hultaj barbershop', 'ul. Ordona 7b, 01-237 Warszawa', 'Wola', '+48 22 123 45 83', '{"website":"hultaj.pl"}', ARRAY['Haircut','Beard','Shave'], 60, 140, 4.7, 340),
+              (gen_random_uuid(), 'Relax in Spa', 'ul. Grzybowska 43, 00-855 Warszawa', 'Wola', '+48 22 123 45 84', '{"website":"relaxinspa.pl"}', ARRAY['Haircut','Massage','SPA','Manicure'], 100, 400, 4.5, 560),
+              (gen_random_uuid(), 'Atelier Kasper Muth', 'ul. Pańska 65 Lok.36/ 4 piętro, 00-830 Warszawa', 'Wola', '+48 22 123 45 85', '{"website":"kaspermuth.pl"}', ARRAY['Haircut','Coloring','Styling'], 80, 220, 4.8, 230),
+              (gen_random_uuid(), 'Voila', 'ul. Górczewska 124 CH Wola Park, 01-460 Warszawa', 'Wola', '+48 22 123 45 86', '{"website":"voila.pl"}', ARRAY['Haircut','Makeup','Styling'], 70, 200, 4.3, 450),
+              (gen_random_uuid(), 'MIODEK HAIR HOUSE', 'ul. Okopowa 58/72, 01-043 Warszawa', 'Wola', '+48 22 123 45 87', '{"website":"miodekhair.pl"}', ARRAY['Haircut','Coloring','Styling'], 60, 180, 4.5, 120),
+              (gen_random_uuid(), 'Mirror Queen Hair', 'ul. Radziwie 7, 01-164 Warszawa', 'Wola', '+48 22 123 45 88', '{"website":"mirrorqueen.pl"}', ARRAY['Hair Extensions','Coloring','Styling'], 150, 800, 4.7, 340),
+
+              -- Praga Południe
+              (gen_random_uuid(), 'The PLACE Barber Shop', 'Plac Przymierza 2, 04-515 Warszawa', 'Praga Południe', '+48 22 123 45 89', '{"website":"theplace.pl"}', ARRAY['Haircut','Beard','Shave'], 50, 130, 4.6, 210),
+              (gen_random_uuid(), 'Warsztat Cięcia Barber Shop', 'ul. Ostrobramska 73E, 04-175 Warszawa', 'Praga Południe', '+48 22 123 45 90', '{"website":"warsztatciecia.pl"}', ARRAY['Haircut','Beard','Skin Fade'], 45, 110, 4.5, 180),
+              (gen_random_uuid(), 'Czarodziej Barbershop&amp;Beauty', 'ul. gen. Augusta Emila Fieldorfa "Nila" 10/lokal 305, 03-984 Warszawa', 'Praga Południe', '+48 22 123 45 91', '{"website":"czarodziej.pl"}', ARRAY['Haircut','Beard','Beauty'], 60, 160, 4.4, 560),
+              (gen_random_uuid(), '220 Barber Shop Na Wiatraku', 'ul. Wiatraczna 2, 03-828 Warszawa', 'Praga Południe', '+48 22 123 45 92', '{"website":null}', ARRAY['Haircut','Beard'], 50, 120, 4.5, 150),
+              (gen_random_uuid(), 'MD Studio', 'ul. Widoczna 103, 04-612 Warszawa', 'Praga Południe', '+48 533 282 787', '{"website":null}', ARRAY['Nail Extensions','Haircut','Makeup'], 40, 150, 4.4, 90),
+
+              -- Praga Północ
+              (gen_random_uuid(), 'Klasyk Portowy Barbershop', 'ul. Kępna 2b, 03-730 Warszawa', 'Praga Północ', '+48 503 807 503', '{"website":"klasykportowy.pl"}', ARRAY['Haircut','Beard','Shave'], 60, 150, 5.0, 924),
+              (gen_random_uuid(), 'Barber Shop Praga', 'ul. Ząbkowska 38, 03-735 Warszawa', 'Praga Północ', '+48 739 299 091', '{"website":"barbershop-praga.pl"}', ARRAY['Haircut','Beard','Styling'], 50, 130, 4.6, 430),
+              (gen_random_uuid(), 'Legacy Barbershop Białołęka', 'ul. Światowida 58/Lok U8, 03-144 Warszawa', 'Białołęka', '+48 22 123 45 93', '{"website":"legacybarbershop.pl"}', ARRAY['Haircut','Beard','SPA'], 70, 200, 4.8, 450),
+
+              -- Bemowo
+              (gen_random_uuid(), 'Hair by Sylwia Wiśniewska', 'ul. Lazurowa 183/88, 01-473 Warszawa', 'Bemowo', '+48 22 123 45 94', '{"website":null}', ARRAY['Haircut','Coloring','Styling','Balayage'], 70, 200, 4.6, 120),
+              (gen_random_uuid(), 'Hair by Ann Bemowo', 'ul. Górczewska 222/lok.2, 01-460 Warszawa', 'Bemowo', '+48 511 601 016', '{"website":null}', ARRAY['Coloring','Hair Extensions','Keratin Treatment','Children Haircut'], 60, 300, 4.5, 90),
+              (gen_random_uuid(), 'Beauty Moments', 'ul. Gen. Tadeusza Pełczyńskiego 14/U14, 01-471 Warszawa', 'Bemowo', '+48 722 347 104', '{"website":null}', ARRAY['Haircut','Styling','Coloring'], 50, 150, 4.3, 45),
+              (gen_random_uuid(), 'HAIR &amp; CLUB', 'ul. Morcinka 5/9, 01-496 Warszawa', 'Bemowo', '+48 22 861 53 83', '{"website":null}', ARRAY['Haircut','Manicure','Pedicure','Massage','Balayage'], 40, 250, 4.4, 230),
+              (gen_random_uuid(), 'Kamil Rajt Art of Creation', 'ul. Powstańców Śląskich 45/Lu-1, 01-355 Warszawa', 'Bemowo', '+48 607 781 873', '{"website":null}', ARRAY['Haircut','Balayage','Coloring','Keratin','Perm'], 80, 280, 4.7, 180),
+              (gen_random_uuid(), 'Salon Piękności Denique', 'ul. Powstańców Śląskich 126, 01-494 Warszawa', 'Bemowo', '+48 22 235 366 88', '{"website":"denique.pl"}', ARRAY['Balayage','Coloring','Children Haircut','Dreadlocks','Keratin'], 60, 220, 4.5, 120),
+              (gen_random_uuid(), 'Salon fryzjerski "Efektownia Bemowo"', 'ul. Gen. Tadeusza Pełczyńskiego 22J, 01-471 Warszawa', 'Bemowo', '+48 22 123 45 95', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 50, 160, 4.4, 70),
+              (gen_random_uuid(), 'Men''s Place - Barber Shop', 'ul. Górczewska 228, 01-460 Warszawa', 'Bemowo', '+48 22 123 45 96', '{"website":null}', ARRAY['Haircut','Beard','Children Haircut'], 45, 120, 4.5, 110),
+
+              -- Ursynów
+              (gen_random_uuid(), 'Barber URSYNÓW MEN', 'Al. Komisji Edukacji Narodowej 98, 02-777 Warszawa', 'Ursynów', '+48 22 123 45 97', '{"website":null}', ARRAY['Haircut','Beard','Shave'], 50, 130, 4.4, 180),
+              (gen_random_uuid(), 'Gnatyshyn', 'Al. Komisji Edukacji Narodowej 97, 02-777 Warszawa', 'Ursynów', '+48 22 123 45 98', '{"website":null}', ARRAY['Haircut','Beard','Coloring'], 55, 140, 4.3, 90),
+              (gen_random_uuid(), 'Fryzjer Męski Ursynów', 'ul. Stanisława Herbsta 1, 02-784 Warszawa', 'Ursynów', '+48 22 123 45 99', '{"website":null}', ARRAY['Haircut','Beard','Styling'], 40, 110, 4.4, 120),
+              (gen_random_uuid(), 'FARFA - salon fryzjersko-kosmetyczny', 'ul. Polaka 2a, 02-777 Warszawa', 'Ursynów', '+48 22 123 46 00', '{"website":null}', ARRAY['Haircut','Coloring','Manicure','Pedicure'], 50, 180, 4.5, 210),
+              (gen_random_uuid(), 'Art Hair Studio Fryzur', 'ul. Wąwozowa 23 lok. 3, 02-796 Warszawa', 'Ursynów', '+48 22 123 46 01', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 60, 200, 4.6, 150),
+              (gen_random_uuid(), 'Cięty Barber Ursynów', 'Al. Komisji Edukacji Narodowej 51/lok10, 02-797 Warszawa', 'Ursynów', '+48 22 123 46 02', '{"website":null}', ARRAY['Haircut','Beard','Skin Fade'], 50, 120, 4.7, 180),
+              (gen_random_uuid(), 'Blade Barbershop', 'ul. Belgradzka 14/u5, 02-793 Warszawa', 'Ursynów', '+48 22 123 46 03', '{"website":null}', ARRAY['Haircut','Beard','Shave'], 45, 110, 4.5, 140),
+              (gen_random_uuid(), 'ADDvoCUT Barbershop', 'ul. Dereniowa 10/Lokal 1, 02-776 Warszawa', 'Ursynów', '+48 22 123 46 04', '{"website":null}', ARRAY['Haircut','Beard','Styling'], 50, 130, 4.6, 110),
+
+              -- Wilanów
+              (gen_random_uuid(), 'Hairmate Wilanów', 'ul. Klimczaka 16, 02-797 Warszawa', 'Wilanów', '+48 787 989 365', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 70, 250, 4.7, 320),
+              (gen_random_uuid(), 'ST Beauty Warszawa Wilanów', 'ul. Przyczółkowa 27A, 02-972 Warszawa', 'Wilanów', '+48 22 123 46 05', '{"website":"stbeauty.eu"}', ARRAY['Aesthetic Medicine','Laser Epilation','Haircut','Makeup'], 100, 600, 4.8, 210),
+              (gen_random_uuid(), 'ND STUDIO FRYZJER &amp; MASAŻ Wilanów', 'ul. Wilanowska 27, 02-765 Warszawa', 'Wilanów', '+48 451 654 911', '{"website":null}', ARRAY['Haircut','Massage','Styling'], 60, 200, 4.5, 140),
+              (gen_random_uuid(), 'IQ Beauty Salon', 'ul. Rzeczypospolitej 14, 02-972 Warszawa', 'Wilanów', '+48 571 309 803', '{"website":null}', ARRAY['Laser Depilation','Haircut','Coloring','Training'], 80, 350, 4.6, 180),
+
+              -- Białołęka
+              (gen_random_uuid(), 'Dziki Barber Białołęka', 'ul. Strumykowa 45, 03-138 Warszawa', 'Białołęka', '+48 22 123 46 06', '{"website":null}', ARRAY['Haircut','Beard','Styling'], 50, 130, 4.6, 210),
+              (gen_random_uuid(), 'Alex Studio Fryzjerskie', 'ul. Toruska 52 / 72, 03-226 Warszawa', 'Białołęka', '+48 22 123 46 07', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 45, 120, 4.3, 150),
+              (gen_random_uuid(), 'Ostre Cięcia Salon Fryzjerski', 'ul. Strumykowa 35, 03-138 Warszawa', 'Białołęka', '+48 570 918 777', '{"website":null}', ARRAY['Haircut','Coloring','Beard'], 50, 140, 4.4, 120),
+
+              -- Bielany
+              (gen_random_uuid(), 'Salma', 'ul. Gen. Maczka 15, 01-873 Warszawa', 'Bielany', '+48 22 834 3684', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 60, 160, 4.3, 90),
+              (gen_random_uuid(), 'Salon Urody Przyjaciółka', 'ul. Powązkowska 40 lokal U1, 01-797 Warszawa', 'Bielany', '+48 512 066 646', '{"website":null}', ARRAY['Hair Extensions','Haircut','Coloring'], 80, 300, 4.5, 110),
+              (gen_random_uuid(), 'Paris Barbershop', 'ul. gen. W. Andersa 3, 01-947 Warszawa', 'Bielany', '+48 572 246 152', '{"website":null}', ARRAY['Haircut','Beard','Styling'], 50, 130, 4.4, 130),
+
+              -- Żoliborz
+              (gen_random_uuid(), 'Salon Fryzjerski Perfection', 'ul. Słowackiego 24, 01-627 Warszawa', 'Żoliborz', '+48 22 123 46 08', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 60, 180, 4.5, 90),
+
+              -- Ochota
+              (gen_random_uuid(), 'Las Palmas Beauty &amp; Spa', 'ul. Częstochowska 36/38, 02-350 Warszawa', 'Ochota', '+48 22 123 46 09', '{"website":null}', ARRAY['Haircut','SPA','Massage','Manicure'], 70, 300, 4.6, 180),
+              (gen_random_uuid(), 'Centrum piękna', 'ul. Cicha 5, 02-050 Warszawa', 'Ochota', '+48 22 123 46 10', '{"website":null}', ARRAY['Haircut','Coloring','Manicure','Styling'], 50, 150, 4.3, 120),
+              (gen_random_uuid(), 'Beauty Center A&amp;A', 'ul. Szczęśliwicka 41/U1, 02-353 Warszawa', 'Ochota', '+48 22 123 46 11', '{"website":null}', ARRAY['Haircut','Coloring','Styling','Makeup'], 55, 160, 4.4, 90),
+
+              -- Targówek
+              (gen_random_uuid(), 'Legacy Barbershop Targówek', 'ul. Kondratowicza 59, 03-285 Warszawa', 'Targówek', '+48 22 123 46 12', '{"website":"legacybarbershop.pl"}', ARRAY['Haircut','Beard','SPA'], 60, 180, 4.7, 210),
+              (gen_random_uuid(), 'Barber Shop Targówek', 'ul. Głębocka 3/lok. U17, 03-287 Warszawa', 'Targówek', '+48 508 410 496', '{"website":"barbershoptargowek.pl"}', ARRAY['Haircut','Beard','Styling'], 50, 140, 4.5, 160),
+              (gen_random_uuid(), 'Amry Barbershop Targówek', 'ul. Remiszewska 1, 03-327 Warszawa', 'Targówek', '+48 22 123 46 13', '{"website":null}', ARRAY['Haircut','Beard','Shave'], 45, 120, 4.4, 90),
+
+              -- Rembertów
+              (gen_random_uuid(), 'Dziki Barber Rembertów', 'Al. gen. A. Chruściela "Montera" 46, 04-401 Warszawa', 'Rembertów', '+48 22 123 46 14', '{"website":null}', ARRAY['Haircut','Beard','Children Haircut','Balayage'], 50, 140, 4.6, 110),
+
+              -- Wesoła
+              (gen_random_uuid(), 'Peaky Barbers Wesoła', 'ul. Jana Pawła II 23, 05-077 Warszawa', 'Wesoła', '+48 22 123 46 15', '{"website":"peakybarbers.pl"}', ARRAY['Haircut','Beard','Shave'], 45, 120, 4.7, 90),
+
+              -- Ursus
+              (gen_random_uuid(), 'Black Bear Barbershop', 'ul. Posag 7 Panien 20/U2, 02-495 Warszawa', 'Ursus', '+48 22 123 46 16', '{"website":null}', ARRAY['Haircut','Beard','Styling'], 50, 130, 4.5, 80),
+              (gen_random_uuid(), 'Factory Ursus', 'Plac Czerwca 1976 r. 6, 02-495 Warszawa', 'Ursus', '+48 22 123 46 17', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 55, 160, 4.3, 120),
+
+              -- Włochy
+              (gen_random_uuid(), 'Salon Fryzjerski Ornoch', 'ul. Bohaterów Warszawy 34, 02-483 Warszawa', 'Włochy', '+48 22 123 46 18', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 50, 140, 4.4, 100),
+
+              -- Additional across all districts
+              (gen_random_uuid(), 'Studio Urody Yoko', 'ul. Puławska 295, 02-752 Warszawa', 'Mokotów', '+48 22 123 46 19', '{"website":null}', ARRAY['Haircut','Coloring','Manicure','Pedicure'], 45, 150, 4.3, 210),
+              (gen_random_uuid(), 'Hair Coif', 'ul. Wołoska 12, 02-675 Warszawa', 'Mokotów', '+48 22 123 46 20', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 60, 180, 4.4, 150),
+              (gen_random_uuid(), 'Cagiel Beauty', 'ul. Zdziechowskiego 6/1, 02-659 Warszawa', 'Mokotów', '+48 22 123 46 21', '{"website":null}', ARRAY['Haircut','Coloring','Makeup'], 70, 200, 4.6, 90),
+              (gen_random_uuid(), 'Sekret Urody', 'ul. Rumiankowa 8A, 02-495 Warszawa', 'Ursus', '+48 22 123 46 22', '{"website":null}', ARRAY['Haircut','Coloring','Manicure'], 45, 120, 4.3, 110),
+              (gen_random_uuid(), 'HR Studio', 'ul. Górczewska 41, 01-144 Warszawa', 'Wola', '+48 500 766 336', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 50, 140, 4.4, 130),
+              (gen_random_uuid(), 'Harmonny', 'ul. Widawska 9, 01-466 Warszawa', 'Bemowo', '+48 22 123 46 23', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 55, 160, 4.3, 70),
+              (gen_random_uuid(), 'Salon Piękności Denique', 'ul. Powstańców Śląskich 126, 01-494 Warszawa', 'Bemowo', '+48 22 123 46 24', '{"website":null}', ARRAY['Balayage','Coloring','Styling','Keratin'], 60, 220, 4.5, 140),
+              (gen_random_uuid(), 'Etno Tech Studio Fryzur', 'Galeria Bemowo, ul. Powstańców Śląskich 126, 01-466 Warszawa', 'Bemowo', '+48 22 123 46 25', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 50, 160, 4.4, 90),
+              (gen_random_uuid(), 'Studio Makeuphair', 'ul. Kasprzaka 24A, 01-230 Warszawa', 'Wola', '+48 22 123 46 26', '{"website":null}', ARRAY['Haircut','Keratin','Makeup'], 60, 200, 4.5, 110),
+              (gen_random_uuid(), 'Studio Urody Trio', 'ul. Monte Casino 13/10, 01-118 Warszawa', 'Wola', '+48 22 123 46 27', '{"website":null}', ARRAY['Haircut','Coloring','Manicure'], 45, 140, 4.3, 100),
+              (gen_random_uuid(), 'Salon Fryzjerski Akademia Urody Anna Bielicka', 'ul. Patriotów 309, 00-001 Warszawa', 'Wawer', '+48 22 615 27 32', '{"website":null}', ARRAY['Haircut','Coloring','Styling'], 50, 150, 4.4, 80),
+              (gen_random_uuid(), 'Salon Professional Cosmetics', 'ul. Wilgi 8, 04-831 Warszawa', 'Wawer', '+48 22 615 63 74', '{"website":null}', ARRAY['Haircut','Cosmetics','Styling'], 45, 130, 4.3, 60),
+              (gen_random_uuid(), 'Step In Dworak', 'ul. Świeradowska 47, 02-662 Warszawa', 'Mokotów', '+48 22 123 46 28', '{"website":null}', ARRAY['Haircut','Beauty','Styling'], 50, 140, 4.4, 70),
+              (gen_random_uuid(), 'Linhlynnails', 'ul. Mołdawska 5/7/59, 02-127 Warszawa', 'Ochota', '+48 22 123 46 29', '{"website":null}', ARRAY['Nails','Haircut','Makeup'], 40, 120, 4.3, 80),
+              (gen_random_uuid(), 'EN STUDIO FRYZUR Edyta Nickiewicz', 'ul. Korkowa 31, 04-669 Warszawa', 'Wawer', '+48 22 615 63 74', '{"website":null}', ARRAY['Haircut','Coloring','Styling','Keratin Treatment'], 45, 150, 4.8, 15),
+              (gen_random_uuid(), 'Atelier Fryzjerskie Dorota Kawecka', 'ul. Nowaka-Jeziorańskiego 9 lok. 5, 03-982 Warszawa', 'Praga-Południe', '+48 697 529 887', '{"website":null}', ARRAY['Haircut','Coloring','Styling','Balayage'], 50, 200, 4.9, 85),
+              (gen_random_uuid(), 'B.Lond &amp; 5 Styliści Fryzur Beata Popiołek', 'ul. Abrahama 18 lok. 314, 03-982 Warszawa', 'Praga-Południe', '+48 790 791 260', '{"website":null}', ARRAY['Haircut','Coloring','Balayage','Styling'], 60, 250, 4.8, 42),
+              (gen_random_uuid(), 'Elegantka Zakład Fryzjerski Alina Lewandowska', 'ul. Abrahama 7, 03-982 Warszawa', 'Praga-Południe', '+48 22 673 23 83', '{"website":null}', ARRAY['Haircut','Coloring','Styling','Manicure','Pedicure'], 45, 180, 4.7, 28),
+              (gen_random_uuid(), 'Salon Fryzjerski K&amp;L', 'ul. Ostrobramska 75C Lok. 2.15, 04-175 Warszawa', 'Praga-Południe', '+48 22 123 46 30', '{"website":null}', ARRAY['Haircut','Coloring','Styling','Balayage','Hair Extensions'], 40, 200, 4.5, 35),
+              (gen_random_uuid(), 'Piękna Odnowa', 'ul. Tykocińska 42, 03-545 Warszawa', 'Targówek', '+48 22 744 04 44', '{"website":null}', ARRAY['Haircut','Coloring','Styling','Manicure','Pedicure'], 50, 160, 4.5, 20),
+              (gen_random_uuid(), 'Salon Fryzjerski Anita Kosek', 'ul. Elbląska 37, 01-737 Warszawa', 'Bielany', '+48 22 123 46 31', '{"website":null}', ARRAY['Haircut','Coloring','Styling','Keratin Treatment'], 55, 170, 4.8, 64),
+              (gen_random_uuid(), 'Magdalena Parzyszek', 'ul. Zwoleńska 131/7, 04-761 Warszawa', 'Wawer', '+48 22 123 46 32', '{"website":null}', ARRAY['Haircut','Styling','Coloring','Balayage'], 50, 160, 4.7, 19),
+              (gen_random_uuid(), 'Home Hair Paweł Mlonka', 'ul. Patriotów 185, 04-881 Warszawa', 'Wawer', '+48 22 123 46 33', '{"website":null}', ARRAY['Haircut','Beard','Shave'], 40, 100, 4.6, 28),
+              (gen_random_uuid(), 'Salon Fryzjerski Jola', 'ul. Grochowska 86, 04-304 Warszawa', 'Praga-Południe', '+48 22 610 50 53', '{"website":null}', ARRAY['Haircut','Coloring','Styling','Perm'], 45, 140, 4.7, 56);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

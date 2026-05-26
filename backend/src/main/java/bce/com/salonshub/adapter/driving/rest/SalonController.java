@@ -3,18 +3,23 @@ package bce.com.salonshub.adapter.driving.rest;
 import bce.com.salonshub.adapter.driving.rest.mapper.SalonMapper;
 import bce.com.salonshub.adapter.driving.rest.model.dto.SalonDTO;
 import bce.com.salonshub.adapter.driving.rest.model.view.SalonView;
+import bce.com.salonshub.adapter.secondary.salonstorage.SqlBuilder;
 import bce.com.salonshub.domain.Salon;
 import bce.com.salonshub.domain.SalonId;
 import bce.com.salonshub.port.primary.SalonIngestionPort;
 import bce.com.salonshub.port.primary.SalonRetrievalPort;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -29,8 +34,12 @@ public class SalonController {
     private final SalonIngestionPort ingestionPort;
 
     @GetMapping
-    public Flux<SalonView> getAllSalons() {
-        return retrievalPort.findAllSalons()
+    public Flux<SalonView> getAllSalons(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "20") int size,
+        @RequestParam(required = false) String sort) {
+        Pageable pageable = buildPageable(page, size, sort);
+        return retrievalPort.findAllSalons(pageable)
             .map(SalonMapper::toView);
     }
 
@@ -81,8 +90,34 @@ public class SalonController {
     }
 
     @GetMapping("/filter")
-    public Flux<SalonView> dynamicFind(@RequestParam Map<String, String> fields) {
-        return retrievalPort.findSalonsByFields(fields)
+    public Flux<SalonView> dynamicFind(
+        @RequestParam Map<String, String> allParams,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "20") int size,
+        @RequestParam(required = false) String sort) {
+        Map<String, String> fields = new HashMap<>(allParams);
+        fields.remove("page");
+        fields.remove("size");
+        fields.remove("sort");
+
+        Pageable pageable = buildPageable(page, size, sort);
+        return retrievalPort.findSalonsByFields(fields, pageable)
             .map(SalonMapper::toView);
+    }
+
+    private Pageable buildPageable(int page, int size, String sortParam) {
+        Sort sort = Sort.unsorted();
+        if (sortParam != null && !sortParam.isBlank()) {
+            String[] parts = sortParam.split(",");
+            if (parts.length == 2) {
+                String field = SqlBuilder.toSnakeCase(parts[0]);
+                Sort.Direction direction = parts[1].equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+                sort = Sort.by(direction, field);
+            } else if (parts.length == 1) {
+                String field = SqlBuilder.toSnakeCase(parts[0]);
+                sort = Sort.by(field);
+            }
+        }
+        return PageRequest.of(page, size, sort);
     }
 }
