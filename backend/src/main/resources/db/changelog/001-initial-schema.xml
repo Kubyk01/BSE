@@ -22,7 +22,7 @@
             </column>
             <column name="phone" type="TEXT"/>
             <column name="website" type="JSONB"/>
-            <column name="services" type="TEXT[]"/>
+            <column name="services" type="VARCHAR[]"/>
             <column name="lowest_price" type="DOUBLE PRECISION"/>
             <column name="highest_price" type="DOUBLE PRECISION"/>
             <column name="rating" type="DOUBLE PRECISION"/>

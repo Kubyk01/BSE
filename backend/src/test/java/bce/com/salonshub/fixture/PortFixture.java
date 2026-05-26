@@ -7,6 +7,7 @@ import bce.com.salonshub.port.primary.SalonIngestionPort;
 import bce.com.salonshub.port.primary.SalonRetrievalPort;
 import bce.com.salonshub.port.secondary.SalonStoragePort;
 import org.mockito.Mockito;
+import org.springframework.data.r2dbc.convert.MappingR2dbcConverter;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 
 public class PortFixture {
@@ -19,7 +20,8 @@ public class PortFixture {
     public PortFixture() {
         this.repositoryFixture = new RepositoryFixture();
         R2dbcEntityTemplate template = Mockito.mock(R2dbcEntityTemplate.class);
-        this.salonStoragePort = new SalonStorageAdapter(template, repositoryFixture.salonRepository());
+        MappingR2dbcConverter converter = Mockito.mock(MappingR2dbcConverter.class);
+        this.salonStoragePort = new SalonStorageAdapter(template, repositoryFixture.salonRepository(), converter);
         this.salonIngestionPort = new SalonIngestionService(salonStoragePort);
         this.salonRetrievalPort = new SalonRetrievalService(salonStoragePort);
     }
@@ -39,5 +41,4 @@ public class PortFixture {
     public static PortFixture withNewInMemoryDatabase() {
         return new PortFixture();
     }
-
 }

@@ -24,25 +24,10 @@ public final class SalonMapper {
             .build();
     }
 
-    public static SalonDTO toDTO(Salon salon) {
-        if (salon == null) return null;
-        return SalonDTO.builder()
-            .name(salon.getName())
-            .address(salon.getAddress())
-            .district(salon.getDistrict())
-            .phone(salon.getPhone())
-            .website(salon.getWebsite())
-            .services(salon.getServices())
-            .lowestPrice(salon.getPriceRange() != null ? salon.getPriceRange().lowestPrice() : null)
-            .highestPrice(salon.getPriceRange() != null ? salon.getPriceRange().highestPrice() : null)
-            .rating(salon.getRating())
-            .numberOfReviews(salon.getNumberOfReviews())
-            .build();
-    }
-
     public static SalonView toView(Salon salon) {
         if (salon == null) return null;
         return SalonView.builder()
+            .id(salon.getId() != null ? salon.getId().id() : null)
             .name(salon.getName())
             .address(salon.getAddress())
             .district(salon.getDistrict())

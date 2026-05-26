@@ -7,6 +7,7 @@ import bce.com.salonshub.domain.SalonId;
 import bce.com.salonshub.port.secondary.SalonStoragePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.r2dbc.convert.MappingR2dbcConverter;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.relational.core.query.Query;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -22,6 +24,7 @@ public class SalonStorageAdapter implements SalonStoragePort {
 
     private final R2dbcEntityTemplate template;
     private final SalonRepository repository;
+    private final MappingR2dbcConverter mappingR2dbcConverter;
 
     @Override
     public Mono<Salon> save(Salon salon) {
@@ -60,10 +63,14 @@ public class SalonStorageAdapter implements SalonStoragePort {
 
     @Override
     public Flux<Salon> findByFields(Map<String, String> fields, Pageable pageable) {
-        Criteria criteria = SqlBuilder.toCriteria(fields);
-        Query query = Query.query(criteria).with(pageable);
-        return template.select(SalonDao.class)
-            .matching(query)
+        var sqlAndParams = SqlBuilder.buildFilterQuery(fields, pageable);
+        String sql = sqlAndParams.getT1();
+        List<Object> params = sqlAndParams.getT2();
+
+        return template.getDatabaseClient()
+            .sql(sql)
+            .bindValues(params)
+            .map((row, rowMetadata) -> mappingR2dbcConverter.read(SalonDao.class, row, rowMetadata))
             .all()
             .map(SalonMapper::toDomain);
     }

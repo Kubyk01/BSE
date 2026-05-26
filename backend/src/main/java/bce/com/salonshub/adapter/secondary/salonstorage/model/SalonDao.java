@@ -17,7 +17,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table("Salon")
+@Table("salon")
 public class SalonDao implements Persistable<UUID> {
     @Id
     private UUID id;

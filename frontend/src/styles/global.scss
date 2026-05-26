@@ -1,0 +1,82 @@
+@use './variables' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  background-color: $bg-light;
+  color: $text-light;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: $bg-dark;
+    color: $text-dark;
+  }
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-lg;
+
+  @media (max-width: $mobile) {
+    padding: $spacing-md;
+  }
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  padding-bottom: $spacing-md;
+  border-bottom: 1px solid $border-light;
+
+  @media (prefers-color-scheme: dark) {
+    border-bottom-color: $border-dark;
+  }
+
+  h1 {
+    font-size: 2rem;
+    color: $text-heading-light;
+    margin-bottom: $spacing-sm;
+
+    @media (prefers-color-scheme: dark) {
+      color: $text-heading-dark;
+    }
+  }
+
+  p {
+    color: $text-light;
+    @media (prefers-color-scheme: dark) {
+      color: $text-dark;
+    }
+  }
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: $spacing-xl;
+  font-size: 1.2rem;
+}
+
+.error-message {
+  background-color: rgba($error, 0.1);
+  border-left: 4px solid $error;
+  padding: $spacing-md;
+  margin: $spacing-md 0;
+  color: $error;
+  border-radius: 4px;
+}
+
+.no-results {
+  text-align: center;
+  padding: $spacing-xl;
+  color: $text-light;
+}
