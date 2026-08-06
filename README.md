@@ -73,7 +73,7 @@ java -jar salonshub-0.0.1-SNAPSHOT.jar
 
 (Optional) Native build:
 ```bash
-mvn -Pnative native:compile "-DspringAot.native.buildArgs=--no-fallback -O3 --gc=G1 -march=native"
+mvn -Pnative native:compile
 ./salonshub
 ```
 
